@@ -3,28 +3,60 @@
 // M = 1; N = 15 -> 120
 // M = 4; N = 8. -> 30
 
-// Задача 68: Напишите программу вычисления функции Аккермана с помощью рекурсии. Даны два неотрицательных числа m и n.
-// m = 2, n = 3 -> A(m,n) = 9
-// m = 3, n = 2 -> A(m,n) = 29
+Console.WriteLine("*****************************************************************************************");
+Console.WriteLine("**** Программа нахождения суммы натуральных чисел (1, 2, 3...) в указанном диапазоне ****");
+Console.WriteLine("*****************************************************************************************\n");
 
-int start = ReadConsoleInt("Введите желаемое начало диапазона чётных натуральных чисел:");
-int end = ReadConsoleInt("Введите желаемый конец диапазона чётных натуральных чисел: ");
-Console.WriteLine(PrintInt(start));
 
+int start = ReadConsoleInt("Введите желаемое начало диапазона натуральных чисел: ");
+int end = ReadConsoleInt("Введите желаемый конец диапазона натуральных чисел: ");
+// если пройдены проверки считаем сумму
+if (Checks(start, end)) Console.WriteLine($"Сумма натуральных чисел от {start} до {end} равна " + SumInt(start));
+// если введённые данные не прошли проверку, метод Checks выводит ошибку и программа завершается
+else Console.WriteLine("Перезапустите программу и попробуйте снова =)");
+
+/// <summary>
+/// В переменную записывающую результат метода ReadConsoleInt будет возвращено
+/// либо -1 если не удастся парсинг целочисленного типа
+/// либо, при удачном парсинге, результат считывания из консоли
+/// </summary>
 int ReadConsoleInt(string message)
 {
 	Console.Write(message);
-	return Convert.ToInt32(Console.ReadLine());
+	int integerNumber = 0;
+	var stringValue = Console.ReadLine();
+	if (int.TryParse(stringValue, out integerNumber)) return integerNumber;
+	else return -1;
 }
 
-
-int PrintInt(int start)
+int SumInt(int start) // рекурсивный метод сложения натуральных чисел
 {
-	if (start < end)
-	{
-		Console.WriteLine(start);
-		return PrintInt(start+1) + start;
-	}
+	if (start < end) return SumInt(start+1) + start;
 	else return end;
 }
-// Console.WriteLine($"{start} {end}");
+
+bool Checks(int st, int en) // проверяет введённые 2 числа и указывает пользователю на ошибки
+{
+	if (st <= 0 || en <= 0) // если введены отрицательные или не натуральные(установлено условием else метода ReadConsoleInt()) числа,
+	{						// то выводится подсказка и программа завершается
+		Console.WriteLine("Вы ввели не натуральное число.");
+		return false;
+	}
+	else if (st > en) // если первое число больше второго запускается метод Change() меняющий их местами, чтобы передать в SumInt() валидные значения
+	{
+		Change(st, en);
+		return true;
+	}
+	else if (start == end) // если начало и конец диапазона одинаковы просим изменить входные данные и завершаем программу
+	{
+		Console.WriteLine("Увеличте диапазон чисел.");
+		return false;
+	}
+	else return true;
+}
+
+void Change(int a, int b) // меняет значения start и end друг на друга
+{
+	start = b;
+	end = a;
+}
