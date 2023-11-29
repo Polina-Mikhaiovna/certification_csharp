@@ -11,7 +11,7 @@ Console.WriteLine("*************************************************************
 int start = ReadConsoleInt("Введите желаемое начало диапазона чётных натуральных чисел: ");
 int end = ReadConsoleInt("Введите желаемый конец диапазона чётных натуральных чисел: ");
 
-if (start == -1 || end == -1) Console.WriteLine("Вы ввели не натуральное число, " + 
+if (start < 1 || end < 1) Console.WriteLine("Вы ввели не натуральное число, " + 
 												"перезапустите программу и попробуйте снова =)");
 else
 {
@@ -20,8 +20,7 @@ else
 	else
 	{
 		if ((start % 2) != 0) start += 1;
-		Console.Write(start);
-		Console.WriteLine(PrintEvenInteger(start + 2, end));
+		Console.WriteLine($"\nЧётные натуральные числа в промежутке от {start} до {end}: {start}{PrintEvenInteger(start + 2, end)}");
 	}
 }
 
@@ -37,7 +36,7 @@ int ReadConsoleInt(string message)
 
 string PrintEvenInteger(int a, int b)
 {
-	if(a <= b) return $" {a}" + PrintEvenInteger(a+2, b);
+	if(a <= b) return $", {a}" + PrintEvenInteger(a+2, b);
 	else return $"{'\0'}";
 
 }

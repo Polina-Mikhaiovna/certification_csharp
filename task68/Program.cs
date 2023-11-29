@@ -10,7 +10,7 @@ Console.WriteLine("***********************************************\n");
 int number = ReadConsoleInt("Введите первый параметр функции: ");
 int argument = ReadConsoleInt("Введите второй параметр функции: ");
 
-if (Checks(number, argument)) Console.WriteLine($"A({number}, {argument}) = {Ackermann(number, argument)}");
+if (Checks(number, argument)) Console.WriteLine($"\nA({number}, {argument}) = {Ackermann(number, argument)}");
 else Console.WriteLine("Перезапустите программу и попробуйте снова =)");
 
 
